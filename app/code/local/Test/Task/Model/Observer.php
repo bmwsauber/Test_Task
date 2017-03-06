@@ -1,15 +1,15 @@
 <?php
-class Test_Task_Model_Observer{
-    
-    public function logOrder($observer){        
+class Test_Task_Model_Observer
+{
+    public function logOrder($observer)
+    {   
         if(!Mage::getStoreConfig('test_task/setting/enable'))
             return $this;
         
-        $_order = $observer->getOrder();
+        $_order = $observer->getPayment()->getOrder();
         try{
-            
             $decimal_factor = (float)Mage::getStoreConfig('test_task/setting/decimal_factor');
-            $order_total    = $_order->getQuote()->getGrandTotal();
+            $order_total    = $_order->getGrandTotal();
             
             $data = array(
                 'store_id' => Mage::app()->getStore()->getStoreId(),
